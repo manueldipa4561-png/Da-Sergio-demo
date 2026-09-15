@@ -81,17 +81,40 @@ Tripadvisor e Restaurant Guru riportano fasce simili ma non identiche; altre dir
 - Netlify configuration
 - security headers
 
-## QA eseguito
+## QA responsive completo
 
-Controlli strutturali completati:
+QA eseguito il 15/09/2026 con Chromium headless sulla versione corrente dei file del branch `main`.
 
-- JavaScript valido con `node --check`
-- nessun anchor interno mancante
-- nessun asset locale mancante
-- CSS con parentesi bilanciate
-- gerarchia semantica principale presente
+Viewport verificati:
 
-Il rendering Chromium locale in questa sessione non ha prodotto screenshot affidabili, quindi il responsive visual QA completo va effettuato sul deploy Netlify reale.
+- 320 px
+- 360 px
+- 375 px
+- 390 px
+- 430 px
+- 768 px
+- 1024 px
+- 1440 px
+
+Controlli completati:
+
+- nessun overflow orizzontale a tutti gli 8 viewport
+- nessun elemento `.reveal` rimasto invisibile dopo lo scroll completo della pagina
+- nessun errore JavaScript o console rilevato
+- menu mobile verificato aperto/chiuso a 320, 360, 375, 390, 430 e 768 px
+- menu mobile completamente posizionato sotto l'header, senza clipping
+- nessuna sovrapposizione tra brand e navigazione desktop a 1024 e 1440 px
+- hero, tavola illustrata, sezioni cucina/territorio/reputazione, contatti, closing e footer verificati nei layout responsive
+- mobile action dock verificato entro il viewport
+- controlli/link principali mobile verificati con area di tap adeguata dopo i fix
+
+### Fix applicati durante il QA
+
+1. **Hero typography mobile** — eliminato il salto troppo brusco tra 360 e 375 px. La dimensione ora cresce in modo progressivo (`54px` a 320, `57.6px` a 360, `60px` a 375, `62.4px` a 390, `68.8px` a 430).
+2. **Tap targets mobile** — aumentata l'area interattiva minima per brand, menu toggle, link secondario dell'hero, link della info card e link footer mobile.
+3. **Nessun redesign** — concept, palette, struttura e direzione visuale originali sono rimasti invariati; sono stati applicati solo fix responsive/UX mirati.
+
+Esito finale: **PASS** sui viewport richiesti, senza overflow, errori JS o regressioni di layout rilevate nel pass finale.
 
 ## Deploy Netlify
 
